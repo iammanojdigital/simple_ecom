@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 const PENDING_CART_KEY = "pending_cart_action";
@@ -49,7 +49,7 @@ function categoryNames(values?: Array<string | { name: string; image?: string }>
   return names;
 }
 
-export default function ProductsPage() {
+function ProductsPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [products, setProducts] = useState<Product[]>([]);
@@ -333,6 +333,20 @@ export default function ProductsPage() {
         </div>
       )}
     </main>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="mx-auto w-full max-w-(--breakpoint-2xl) p-4">
+          <p className="text-sm text-gray-500">Loading products...</p>
+        </main>
+      }
+    >
+      <ProductsPageContent />
+    </Suspense>
   );
 }
 

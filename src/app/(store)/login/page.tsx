@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
 const PENDING_CART_KEY = "pending_cart_action";
 
-export default function CustomerOtpLoginPage() {
+function CustomerOtpLoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [identity, setIdentity] = useState("9876543210");
@@ -147,6 +147,14 @@ export default function CustomerOtpLoginPage() {
         </Link>
       </div>
     </main>
+  );
+}
+
+export default function CustomerOtpLoginPage() {
+  return (
+    <Suspense fallback={<main className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8"><p className="text-sm text-gray-500">Loading login...</p></main>}>
+      <CustomerOtpLoginContent />
+    </Suspense>
   );
 }
 
