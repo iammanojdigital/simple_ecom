@@ -1,0 +1,4 @@
+cmd to run dev : npm run dev
+
+user name : manojdevfullstack_db_user
+password : VWGaT7NuVfAcuT7R
